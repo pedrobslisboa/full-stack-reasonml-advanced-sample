@@ -1,0 +1,23 @@
+(include_subdirs unqualified)
+
+(library
+ (name shared_js_demo)
+ (modes melange)
+ (libraries reason-react styled-ppx.emotion universal-portal.shared_js)
+ (preprocess
+  (pps
+   melange.ppx
+   styled-ppx
+   reason-react-ppx
+   server-reason-react.browser_ppx
+   -js)))
+
+(copy_files# "../native/lib/*.re")
+
+(copy_files# "../native/lib/Components/*.re")
+
+(copy_files# "../native/lib/Hooks/*.re")
+
+(copy_files# "../native/lib/Pages/*.re")
+
+(copy_files# "../native/lib/Bindings/*.re")

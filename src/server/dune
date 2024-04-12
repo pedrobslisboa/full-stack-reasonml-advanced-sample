@@ -1,0 +1,22 @@
+(executable
+ (name server)
+ (libraries
+  dream
+  uri
+  cohttp
+  cohttp-lwt
+  lwt
+  styled-ppx.emotion_native
+  lwt.unix
+  cohttp-lwt-unix
+  universal-portal.server
+  server-reason-react.react
+  server-reason-react.reactDom
+  yojson
+  shared_native_demo)
+ (preprocess
+  (pps
+   server-reason-react.ppx
+   styled-ppx
+   --native
+   server-reason-react.melange_ppx)))

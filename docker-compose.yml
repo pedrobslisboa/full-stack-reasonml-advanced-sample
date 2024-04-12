@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile # Assuming the Dockerfile is in the same directory
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app # Mount the project directory in the container
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
