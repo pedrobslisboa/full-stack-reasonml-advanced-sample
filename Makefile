@@ -49,7 +49,7 @@ docker-run:
 .PHONY: run
 run: build
 	yarn webpack
-	$(DUNE) exec src/server/server.exe
+	_build/default/src/server/server.exe
 
 .PHONY: server
 server: build

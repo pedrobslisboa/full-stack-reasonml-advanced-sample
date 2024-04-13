@@ -10,4 +10,4 @@ services:
     volumes:
       - .:/app # Mount the project directory in the container
     environment:
-      - DEBIAN_FRONTEND=noninteractive
+      - SERVER_INTERFACE=0.0.0.0
