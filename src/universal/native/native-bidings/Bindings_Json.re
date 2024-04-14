@@ -2,32 +2,6 @@ open Yojson.Basic.Util;
 
 type t = Yojson.Basic.t;
 
-/**
-
-let label = json => json |> member("label") |> to_string;
-let value = json => json |> member("value") |> to_string;
-let population = json => json |> member("population") |> to_int;
-
-let countries = json => {
-  `List(
-    {
-      json
-      |> to_list
-      |> List.map(country => {
-           let value = country |> member("value") |> to_string;
-           let label = country |> member("label") |> to_string;
-
-           `Assoc([
-             ("value", `String(value)),
-             ("label", `String(label)),
-             ("population", `Int(population(country))),
-           ]);
-         });
-    },
-  );
-};
- */
-
 type jsonTypes = [
   | `String(string)
   | `Int(int)

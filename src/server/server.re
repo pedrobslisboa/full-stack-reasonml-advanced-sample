@@ -12,6 +12,18 @@ let pokemonRoute =
       },
   );
 
+let getFolderContent = folder => Sys.readdir(folder);
+let rec getRecursiveFolderContent = folder =>
+  getFolderContent(folder)
+  |> Array.map(file => {
+       let path = folder ++ "/" ++ file;
+       Sys.is_directory(path) ? getRecursiveFolderContent(path) : [path];
+     })
+  |> Array.to_list
+  |> List.concat;
+
+getRecursiveFolderContent("./src") |> List.iter(print_endline);
+
 let portalRoute =
   Routes_build.make(
     ~route=Shared_native_demo.Pages.Portal.Make.route,

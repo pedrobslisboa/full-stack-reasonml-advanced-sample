@@ -53,29 +53,29 @@ module Styles = {
 let initialPropsDefault =
   Bindings.Json.from_string(
     {|
-  {
-    "name": "bulbasaur",
-    "sprites": {
-      "other": {
-        "dream_world": {
-          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-        }
-      }
-    },
-    "abilities": [
       {
-        "ability": {
-          "name": "overgrow"
-        }
-      },
-      {
-        "ability": {
-          "name": "chlorophyll"
-        }
+        "name": "bulbasaur",
+        "sprites": {
+          "other": {
+            "dream_world": {
+              "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+            }
+          }
+        },
+        "abilities": [
+          {
+            "ability": {
+              "name": "overgrow"
+            }
+          },
+          {
+            "ability": {
+              "name": "chlorophyll"
+            }
+          }
+        ]
       }
-    ]
-  }
-|},
+    |},
   );
 
 module Make = {
