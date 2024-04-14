@@ -1,19 +1,3 @@
-module type Page = {
-  let route: string;
-  let getInitialProps:
-    option(
-      (string => option(string)) => Bindings.Js.Promise.t(Bindings.Json.t),
-    );
-
-  [@react.component]
-  let make: (~initialProps: Bindings.Json.t=?) => React.element;
-};
-
-module Page = (R: Page) => {
-  module Make = R;
-}
-
-
 let rec classNames = classes => {
   switch (classes) {
   | [] => ""

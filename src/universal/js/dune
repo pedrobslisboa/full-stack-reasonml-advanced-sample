@@ -21,3 +21,5 @@
 (copy_files# "../native/lib/Pages/*.re")
 
 (copy_files# "../native/lib/Bindings/*.re")
+
+(copy_files# "../native/lib/Services/*.re")

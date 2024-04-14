@@ -1,10 +1,10 @@
 let pokemonRoute =
   Routes_build.make(
-    ~route=Shared_native_demo.Pages.Pokemon.route,
+    ~route=Shared_native_demo.Pages.Pokemon.Make.route,
     ~renderApp=
-      initialProps => <Shared_native_demo.Pages.Pokemon initialProps />,
+      initialProps => <Shared_native_demo.Pages.Pokemon.Make initialProps />,
     ~initialProps=
-      switch (Shared_native_demo.Pages.Pokemon.getInitialProps) {
+      switch (Shared_native_demo.Pages.Pokemon.Make.getInitialProps) {
       | Some(getInitialProps) => getInitialProps
       | None => (
           _ => Lwt.return(Shared_native_demo.Bindings.Json.from_string("{}"))
@@ -14,10 +14,10 @@ let pokemonRoute =
 
 let portalRoute =
   Routes_build.make(
-    ~route=Shared_native_demo.Pages.Portal.route,
-    ~renderApp=_ => <Shared_native_demo.Pages.Portal />,
+    ~route=Shared_native_demo.Pages.Portal.Make.route,
+    ~renderApp=_ => <Shared_native_demo.Pages.Portal.Make />,
     ~initialProps=
-      switch (Shared_native_demo.Pages.Portal.getInitialProps) {
+      switch (Shared_native_demo.Pages.Portal.Make.getInitialProps) {
       | Some(getInitialProps) => getInitialProps
       | None => (
           _ => Lwt.return(Shared_native_demo.Bindings.Json.from_string("{}"))
