@@ -1,10 +1,6 @@
 type nodeList;
 type document;
 
-module Spread = {
-  let make = (~props, ~children) => React.cloneElement(children, props);
-};
-
 let rec joinUrlPaths = paths =>
   switch (paths) {
   | [] => "/"
