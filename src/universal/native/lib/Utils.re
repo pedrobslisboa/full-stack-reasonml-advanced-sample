@@ -1,18 +1,18 @@
-let getUnit = value =>
-  switch (value) {
-  | x when x >= 1000000. => `Millions
-  | x when x >= 1000. => `Thousands
-  | _ => `Hundreds
-  };
+module type Page = {
+  let route: string;
+  let getInitialProps:
+    option(
+      (string => option(string)) => Bindings.Js.Promise.t(Bindings.Json.t),
+    );
 
-let formatPopulation = population => {
-  switch (getUnit(population)) {
-  | `Millions => population /. 1000000. |> Printf.sprintf("%.1fkk")
-  | `Thousands => population /. 1000. |> Printf.sprintf("%.1fk")
-
-  | `Hundreds => population |> Printf.sprintf("%.0f")
-  };
+  [@react.component]
+  let make: (~initialProps: Bindings.Json.t=?) => React.element;
 };
+
+module Page = (R: Page) => {
+  module Make = R;
+}
+
 
 let rec classNames = classes => {
   switch (classes) {

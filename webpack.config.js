@@ -1,4 +1,3 @@
-const CompressionPlugin = require("compression-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Path = require("path");
@@ -24,7 +23,6 @@ module.exports = (env) => ({
       template: "templates/index.html",
       publicPath: "/public",
     }),
-    new CompressionPlugin(),
     new CopyWebpackPlugin({
       patterns: [
           { from: 'assets'}
