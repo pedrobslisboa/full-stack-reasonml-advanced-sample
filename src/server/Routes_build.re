@@ -19,9 +19,9 @@ let appendUniversalStyles = (html, styles) => {
 
 let getQuery = (req, value) => Dream.query(req, value);
 
-let make = (~route, ~renderApp, ~initialProps) => [
+let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
   Dream.get(
-    route,
+    path,
     req => {
       let portals:
         ref(array(UniversalPortal_Shared.Components.Portal.portal)) =
@@ -29,7 +29,18 @@ let make = (~route, ~renderApp, ~initialProps) => [
 
       let cssStyles = CssJs.render_style_tag();
 
-      initialProps(getQuery(req))
+      let getInitialProps =
+        switch (getInitialPropsOpt) {
+        | Some(getInitialProps) => getInitialProps
+        | None => (
+            _ =>
+              Lwt.return(
+                Shared_native_demo.Bindings.Json.from_string("null"),
+              )
+          )
+        };
+
+      getInitialProps(req)
       >>= (
         props => {
           let html =
@@ -59,10 +70,25 @@ let make = (~route, ~renderApp, ~initialProps) => [
       );
     },
   ),
-  Dream.get("/api/initial-props" ++ route, request => {
-    initialProps(getQuery(request))
-    >>= (
-      props => Shared_native_demo.Bindings.Json.to_string(props) |> Dream.json
-    )
-  }),
+  Dream.get(
+    "/api/initial-props" ++ path,
+    request => {
+      let getInitialProps =
+        switch (getInitialPropsOpt) {
+        | Some(getInitialProps) => getInitialProps
+        | None => (
+            _ =>
+              Lwt.return(
+                Shared_native_demo.Bindings.Json.from_string("null"),
+              )
+          )
+        };
+
+      getInitialProps(request)
+      >>= (
+        props =>
+          Shared_native_demo.Bindings.Json.to_string(props) |> Dream.json
+      );
+    },
+  ),
 ];

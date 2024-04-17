@@ -1,46 +1,24 @@
-let pokemonRoute =
-  Routes_build.make(
-    ~route=Shared_native_demo.Pages.Pokemon.Make.route,
-    ~renderApp=
-      initialProps => <Shared_native_demo.Pages.Pokemon.Make initialProps />,
-    ~initialProps=
-      switch (Shared_native_demo.Pages.Pokemon.Make.getInitialProps) {
-      | Some(getInitialProps) => getInitialProps
-      | None => (
-          _ => Lwt.return(Shared_native_demo.Bindings.Json.from_string("{}"))
-        )
-      },
-  );
+// allow to create page directly on Shared_native_demo.Pages
 
-let getFolderContent = folder => Sys.readdir(folder);
-let rec getRecursiveFolderContent = folder =>
-  getFolderContent(folder)
-  |> Array.map(file => {
-       let path = folder ++ "/" ++ file;
-       Sys.is_directory(path) ? getRecursiveFolderContent(path) : [path];
-     })
-  |> Array.to_list
-  |> List.concat;
+let loadedRoutes = Shared_native_demo.Pages.loadedPages;
 
-getRecursiveFolderContent("./src") |> List.iter(print_endline);
-
-let portalRoute =
-  Routes_build.make(
-    ~route=Shared_native_demo.Pages.Portal.Make.route,
-    ~renderApp=_ => <Shared_native_demo.Pages.Portal.Make />,
-    ~initialProps=
-      switch (Shared_native_demo.Pages.Portal.Make.getInitialProps) {
-      | Some(getInitialProps) => getInitialProps
-      | None => (
-          _ => Lwt.return(Shared_native_demo.Bindings.Json.from_string("{}"))
-        )
-      },
-  );
+let dynamicRoutesList =
+  List.map(
+    (module M: Shared_native_demo.DynamicRouting.Loader_page) => {
+      Routes_build.make(
+        ~path=M.path,
+        ~renderApp=initialProps => M.make(initialProps),
+        ~getInitialProps=M.getInitialProps,
+      )
+    },
+    loadedRoutes,
+  )
+  |> List.flatten;
 
 let handler =
   Dream.router([
     Dream.get("/public/**", Dream.static("./public")),
-    ...List.concat([pokemonRoute, portalRoute]),
+    ...dynamicRoutesList,
   ]);
 
 let interface =

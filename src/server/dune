@@ -17,6 +17,7 @@
  (preprocess
   (pps
    server-reason-react.ppx
+   lwt_ppx
    styled-ppx
    --native
    server-reason-react.melange_ppx)))
