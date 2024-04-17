@@ -8,11 +8,6 @@ let rec joinUrlPaths = paths =>
   | [hd, ...tail] => hd ++ "/" ++ joinUrlPaths(tail)
   };
 
-type routeDetails('a) = {
-  route: 'a,
-  initialProps: option(Shared_js_demo.Bindings.Json.t),
-};
-
 [@react.component]
 let make = (~pathMappingDetails) => {
   let url = ReasonReactRouter.useUrl();
@@ -35,8 +30,8 @@ let make = (~pathMappingDetails) => {
                 Element.innerText(el)
                 |> Shared_js_demo.Bindings.Json.from_string;
 
-              Some(data);
-            | _ => None
+              data;
+            | _ => Shared_js_demo.Bindings.Json.from_string("null")
             };
           }
         );
@@ -73,12 +68,16 @@ let make = (~pathMappingDetails) => {
                  )
               |> then_(props => {
                    setLoading(_ => false);
-                   setRenderRoute(_ => renderRouteComponent(Some(props)));
+                   setRenderRoute(_ => renderRouteComponent(props));
 
                    () |> resolve;
                  })
               |> catch(_ => {
-                   setRenderRoute(_ => renderRouteComponent(None));
+                   setRenderRoute(_ =>
+                     renderRouteComponent(
+                       Shared_js_demo.Bindings.Json.from_string("null"),
+                     )
+                   );
 
                    setLoading(_ => false);
 
@@ -88,7 +87,11 @@ let make = (~pathMappingDetails) => {
             );
           } else {
             setLoading(_ => false);
-            setRenderRoute(_ => renderRouteComponent(None));
+            setRenderRoute(_ =>
+              renderRouteComponent(
+                Shared_js_demo.Bindings.Json.from_string("null"),
+              )
+            );
           };
         };
 
