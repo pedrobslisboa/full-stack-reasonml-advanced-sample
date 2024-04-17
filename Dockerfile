@@ -54,7 +54,7 @@ RUN opam switch create . 5.1.1 --deps-only --with-test -y
 RUN eval $(opam env) && \
     opam exec -- dune build --profile=prod @all
 
-RUN yarn webpack --env production
+RUN yarn webpack --env production --env analize
 
 # Expor a porta do servidor
 EXPOSE 8000
