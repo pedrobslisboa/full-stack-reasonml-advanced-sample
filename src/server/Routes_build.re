@@ -31,13 +31,11 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
 
       let getInitialProps =
         switch (getInitialPropsOpt) {
-        | Some(getInitialProps) => getInitialProps
-        | None => (
-            _ =>
-              Lwt.return(
-                Shared_native_demo.Bindings.Json.from_string("null"),
-              )
+        | Some(getInitialProps) => (
+            req =>
+              getInitialProps(req) >>= (props => Lwt.return(Some(props)))
           )
+        | None => (_ => Lwt.return(None))
         };
 
       getInitialProps(req)
@@ -54,13 +52,18 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
               }),
             );
 
+          let initialPropsJson =
+            switch (props) {
+            | Some(props) =>
+              "<script id=\"__DATA__\" type=\"application/json\">"
+              ++ Shared_native_demo.Bindings.Json.to_string(props)
+              ++ "</script>"
+            | None => ""
+            };
+
           Str.global_replace(
             Str.regexp("<div id=\"root\"></div>"),
-            "<div id=\"root\">"
-            ++ html
-            ++ "</div><script id=\"__DATA__\" type=\"application/json\">"
-            ++ Shared_native_demo.Bindings.Json.to_string(props)
-            ++ "</script>",
+            "<div id=\"root\">" ++ html ++ "</div>" ++ initialPropsJson,
             indexFileString,
           )
           |> UniversalPortal_Server.appendUniversalPortals(_, portals^)
@@ -83,7 +86,6 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
               )
           )
         };
-
       getInitialProps(request)
       >>= (
         props =>

@@ -30,8 +30,8 @@ let make = (~pathMappingDetails) => {
                 Element.innerText(el)
                 |> Shared_js_demo.Bindings.Json.from_string;
 
-              data;
-            | _ => Shared_js_demo.Bindings.Json.from_string("null")
+              Some(data);
+            | _ => None
             };
           }
         );
@@ -68,16 +68,12 @@ let make = (~pathMappingDetails) => {
                  )
               |> then_(props => {
                    setLoading(_ => false);
-                   setRenderRoute(_ => renderRouteComponent(props));
+                   setRenderRoute(_ => renderRouteComponent(Some(props)));
 
                    () |> resolve;
                  })
               |> catch(_ => {
-                   setRenderRoute(_ =>
-                     renderRouteComponent(
-                       Shared_js_demo.Bindings.Json.from_string("null"),
-                     )
-                   );
+                   setRenderRoute(_ => renderRouteComponent(None));
 
                    setLoading(_ => false);
 
@@ -87,11 +83,7 @@ let make = (~pathMappingDetails) => {
             );
           } else {
             setLoading(_ => false);
-            setRenderRoute(_ =>
-              renderRouteComponent(
-                Shared_js_demo.Bindings.Json.from_string("null"),
-              )
-            );
+            setRenderRoute(_ => renderRouteComponent(None));
           };
         };
 

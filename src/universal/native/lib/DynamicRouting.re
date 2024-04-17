@@ -2,18 +2,12 @@ module type Loader_page = {
   let getInitialProps:
     option(Bindings_Dream.request => Bindings.Js.Promise.t(Bindings.Json.t));
   let path: string;
-  let make: Bindings_Json.t => React.element;
+  let make: option(Bindings_Json.t) => React.element;
 };
 
 let loadedRoutes: ref(list(module Loader_page)) = ref([]);
 
-let register =
-    (
-      ~path,
-      ~getInitialProps,
-      ~component: Bindings_Json.t => React.element,
-      loadedRoutes,
-    ) => {
+let register = (~path, ~getInitialProps, ~component, loadedRoutes) => {
   module R = {
     let path = path;
     let getInitialProps = getInitialProps;
