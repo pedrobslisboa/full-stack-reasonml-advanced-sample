@@ -1,4 +1,6 @@
-# Fullstack Reasonml Sample
+Here are some corrections and improvements to the English in your text:
+
+## Fullstack ReasonML Sample
 
 ## Table of Contents
 
@@ -10,14 +12,13 @@
 
 ## Introduction
 
-This is an advanced full-stack applicaiton with Reasonml and React.
-It work as a sample project to show how to build an advanced application with Reasonml and React, with a native Reasonml server.
+This is an advanced full-stack application using ReasonML and React. It serves as a sample project to demonstrate how to build an advanced application with ReasonML and React, including a native ReasonML server.
 
-You can access here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
+You can access it here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
 
-This project uses the following main libraries:
+This project utilizes the following main libraries:
 
-- reasnml
+- reasonml
 - reason-react
 - server-reason-react
 - melange
@@ -26,25 +27,25 @@ This project uses the following main libraries:
 ## Installation
 
 ```sh
-    Make install
+    make install
 ```
 
-With docker:
+With Docker:
 
 ```sh
-    Make docker-build
+    make docker-build
 ```
 
 ## Usage
 
 ```sh
-    Make run
+    make run
 ```
 
-With docker:
+With Docker:
 
 ```sh
-    Make docker-run
+    make docker-run
 ```
 
 ## License
@@ -54,9 +55,13 @@ MIT
 ## Improvements
 
 - Increase test coverage.
-    - Test custom hooks with proper testing library.
-- Increase custom Bindings.
-- Better error handling.
-- Githooks
-- CI/CD
+    - Test custom hooks with the appropriate testing library.
+- Increase custom bindings.
+- Improve error handling.
+- Implement Git hooks.
+- Set up CI/CD
 
+Key points corrected:
+- Capitalization of "ReasonML" and "Docker" for consistency.
+- Corrected the command "Make" to "make" which is the correct usage in shell commands.
+- Fixed spelling errors and enhanced some phrases for clarity.
