@@ -9,7 +9,7 @@ module Main = {
       pathMappingDetails={path =>
         loadedRoutes
         |> Array.find_opt(
-             (module P: Shared_js_demo.DynamicRouting.Loader_page) =>
+             (module P: Shared_js_demo.DynamicRouting.LoaderPage) =>
              P.path == path
            )
         |> (

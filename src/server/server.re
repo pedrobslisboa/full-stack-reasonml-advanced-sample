@@ -4,7 +4,7 @@ let loadedRoutes = Shared_native_demo.Pages.loadedPages;
 
 let dynamicRoutesList =
   loadedRoutes
-  |> List.map((module M: Shared_native_demo.DynamicRouting.Loader_page) => {
+  |> List.map((module M: Shared_native_demo.DynamicRouting.LoaderPage) => {
        Routes_build.make(
          ~path=M.path,
          ~renderApp=initialProps => M.make(initialProps),
