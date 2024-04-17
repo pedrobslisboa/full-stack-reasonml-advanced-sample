@@ -3,16 +3,14 @@
 let loadedRoutes = Shared_native_demo.Pages.loadedPages;
 
 let dynamicRoutesList =
-  List.map(
-    (module M: Shared_native_demo.DynamicRouting.Loader_page) => {
-      Routes_build.make(
-        ~path=M.path,
-        ~renderApp=initialProps => M.make(initialProps),
-        ~getInitialProps=M.getInitialProps,
-      )
-    },
-    loadedRoutes,
-  )
+  loadedRoutes
+  |> List.map((module M: Shared_native_demo.DynamicRouting.Loader_page) => {
+       Routes_build.make(
+         ~path=M.path,
+         ~renderApp=initialProps => M.make(initialProps),
+         ~getInitialProps=M.getInitialProps,
+       )
+     })
   |> List.flatten;
 
 let handler =
