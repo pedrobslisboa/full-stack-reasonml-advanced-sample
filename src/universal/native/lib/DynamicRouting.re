@@ -23,7 +23,7 @@ let register =
   loadedRoutes := [((module R): (module Loader_page)), ...loadedRoutes^];
 };
 
-let getLoadedRoutes = (loadedRoutes): list(module Loader_page) =>
+let getLoadedRoutes = (): list(module Loader_page) =>
   switch (loadedRoutes^) {
   | [] => failwith("There are no registered Pages")
   | pages => pages
