@@ -78,52 +78,53 @@ let initialPropsDefault =
     |},
   );
 
-module Make = {
-  let route = "/pokemon";
+let path = "/pokemon";
 
-  let getInitialProps =
-    Some(
-      query => {
-        let name =
-          switch (query("name")) {
-          | Some(name) => name
-          | None => "bulbasaur"
-          };
+// Runs only on the server
+// but we keep it close to the component
+// to a better overview of the page
+let getInitialProps =
+  Some(
+    req => {
+      let name =
+        switch (Bindings_Dream.query(req, "name")) {
+        | Some(name) => name
+        | None => "bulbasaur"
+        };
 
-        Services.GetPokemon.make(name);
-      },
-    );
+      Services.GetPokemon.make(name);
+    },
+  );
 
-  type props = Services.GetPokemon.pokemon;
+type props = Services.GetPokemon.pokemon;
 
-  [@react.component]
-  let make = (~initialProps=initialPropsDefault) => {
-    let props: props = initialProps |> Services.GetPokemon.decodeJson;
+[@react.component]
+let make = (~initialProps=initialPropsDefault) => {
+  let props: props = initialProps |> Services.GetPokemon.decodeJson;
 
-    <Components.Layout>
-      <Components.Head>
-        <title> {"Pokemon: " ++ props.name ++ "" |> React.string} </title>
-      </Components.Head>
-      <div className=Styles.pokemon>
-        <div className=Styles.pokemonCard>
-          <h1> {props.name |> React.string} </h1>
-          <img
-            className=Styles.pokemonImage
-            src={props.sprites.other.dream_world.front_default}
-            alt={props.name}
-          />
-          <ul className=Styles.abilitiesClass>
-            {props.abilities
-             |> List.map((ab: Services.GetPokemon.abilityRecord) => {
-                  <li className=Styles.ability key={ab.ability.name}>
-                    {ab.ability.name |> React.string}
-                  </li>
-                })
-             |> Array.of_list
-             |> React.array}
-          </ul>
-        </div>
+  <Components.Layout>
+    <Components.Head>
+      <title> {"Pokemon: " ++ props.name ++ "" |> React.string} </title>
+    </Components.Head>
+    <div className=Styles.pokemon>
+      <div className=Styles.pokemonCard>
+        <h1> {props.name |> React.string} </h1>
+        <img
+          className=Styles.pokemonImage
+          src={props.sprites.other.dream_world.front_default}
+          alt={props.name}
+        />
+        <ul className=Styles.abilitiesClass>
+          {props.abilities
+           |> List.map((ab: Services.GetPokemon.abilityRecord) => {
+                <li className=Styles.ability key={ab.ability.name}>
+                  {ab.ability.name |> React.string}
+                </li>
+              })
+           |> Array.of_list
+           |> React.array}
+        </ul>
       </div>
-    </Components.Layout>;
-  };
+    </div>
+  </Components.Layout>;
 };

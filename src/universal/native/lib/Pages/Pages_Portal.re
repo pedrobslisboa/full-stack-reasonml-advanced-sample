@@ -38,53 +38,50 @@ module Styles = {
   ];
 };
 
-module Make = {
-  let route = "/";
+let path = "/";
 
-  let getInitialProps = None;
+[@react.component]
+let make = () => {
+  let (modalOpen, setModalOpen) = React.useState(_ => true);
+  let buttonRef = React.useRef(Bindings.Js.Nullable.null);
+  let modalRef = React.useRef(Bindings.Js.Nullable.null);
 
-  [@react.component]
-  let make = (~initialProps as _=?) => {
-    let (modalOpen, setModalOpen) = React.useState(_ => true);
-    let buttonRef = React.useRef(Bindings.Js.Nullable.null);
-    let modalRef = React.useRef(Bindings.Js.Nullable.null);
+  Hooks_useClickOutsideHandler.make(
+    ~reference=modalRef,
+    ~ignoreElements=Some([|buttonRef|]),
+    ~handler=
+      _ =>
+        if (modalOpen) {
+          setModalOpen(_ => false);
+        },
+    (),
+  );
 
-    Hooks_useClickOutsideHandler.make(
-      ~reference=modalRef,
-      ~ignoreElements=Some([|buttonRef|]),
-      ~handler=
-        _ =>
-          if (modalOpen) {
-            setModalOpen(_ => false);
-          },
-      (),
-    );
-    <Components.Layout>
-      <Components.Head>
-        <title> {"Home " |> React.string} </title>
-      </Components.Head>
-      <button
-        ref={ReactDOM.Ref.domRef(buttonRef)}
-        onClick={_ => setModalOpen(_ => true)}>
-        {"Open modal" |> React.string}
-      </button>
-      {modalOpen
-         ? <UniversalPortal_Shared.Components.Portal selector="body">
-             <div className=Styles.modal>
-               <div
-                 ref={ReactDOM.Ref.domRef(modalRef)}
-                 className=Styles.modalContent>
-                 {"Hey, I'm a universal portal, disable JS on your dev tools and check that I'll still here"
-                  |> React.string}
-                 <button
-                   className=Styles.modalButton
-                   onClick={_ => setModalOpen(_ => false)}>
-                   {"Close" |> React.string}
-                 </button>
-               </div>
+  <Components.Layout>
+    <Components.Head>
+      <title> {"Home " |> React.string} </title>
+    </Components.Head>
+    <button
+      ref={ReactDOM.Ref.domRef(buttonRef)}
+      onClick={_ => setModalOpen(_ => true)}>
+      {"Open modal" |> React.string}
+    </button>
+    {modalOpen
+       ? <UniversalPortal_Shared.Components.Portal selector="body">
+           <div className=Styles.modal>
+             <div
+               ref={ReactDOM.Ref.domRef(modalRef)}
+               className=Styles.modalContent>
+               {"Hey, I'm a universal portal, disable JS on your dev tools and check that I'll still here"
+                |> React.string}
+               <button
+                 className=Styles.modalButton
+                 onClick={_ => setModalOpen(_ => false)}>
+                 {"Close" |> React.string}
+               </button>
              </div>
-           </UniversalPortal_Shared.Components.Portal>
-         : React.null}
-    </Components.Layout>;
-  };
+           </div>
+         </UniversalPortal_Shared.Components.Portal>
+       : React.null}
+  </Components.Layout>;
 };
