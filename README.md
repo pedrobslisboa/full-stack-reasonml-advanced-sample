@@ -1,4 +1,4 @@
-# Fullstack Reasonml Sample
+# Fullstack ReasonML Sample
 
 ## Table of Contents
 
@@ -11,26 +11,23 @@
 
 ## Introduction
 
-This is an advanced full-stack applicaiton with Reasonml and React.
-It work as a sample project to show how to build an advanced application with Reasonml and React, with a native Reasonml server.
+This is an advanced full-stack application using ReasonML and React. It serves as a sample project to demonstrate how to build an application with ReasonML and React, including a native ReasonML server.
 
-You can access here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
+You can access it here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
 
 This project uses the following main libraries:
 
-- reasnml
+- reasonml
 - reason-react
 - server-reason-react
 - melange
 - styled-ppx (emotion)
 
-Keep in mind that the project is still in development and I'm not sure it's production ready.
-It's just a sample I'm having fun with. :)
+Keep in mind that the project is still in development and may not be production-ready. It's just a sample project I'm having fun with. :)
 
 ## Routing
 
-For a easy way to build and keep info together, this project works with getInitialProps system, that is a way to get data from server and pass to the client. Working on SPA and SSR.
-
+For an easy way to build and manage data flow, this project uses the `getInitialProps` system, which retrieves data from the server and passes it to the client. It supports both SPA and SSR functionalities.
 
 Example:
 ```reason
@@ -44,19 +41,19 @@ loadedRoutes
      <h1> {ReasonReact.string(initialProps |> Binding.Json.to_string)} </h1>
    );
    
-// register more routes here
+// Register more routes here
 
 let loadedPages = getLoadedRoutes();
 ```
 
-The `~getInitialProps` has the following contract:
+The `~getInitialProps` is defined as:
 ```reason
 let getInitialProps: option(Bindings_Dream.request => Bindings.Js.Promise.t(Bindings.Json.t));
 ```
 
-So it returns a promise with a json object and you must decode the json object to your data at the component.
+It returns a promise with a JSON object which you must decode into your data at the component level.
 
-The idea is to in the future provide a better way to construct a prop type with buildt-in decoder, maybe with a ppx, similar to deriving yojson but universal.
+The idea is to eventually provide a better way to construct a prop type with a built-in decoder, perhaps using a PPX, similar to `deriving yojson` but universal.
 
 ```reason
 // Pages_Home.re
@@ -64,7 +61,7 @@ type props = [%json { name: string }];
 
 let json = {
     name: "John"
-}
+};
 
 let decodedProps = props_of_yojson(json);
 let jsonProps = props_to_yojson(decodedProps);
@@ -79,9 +76,9 @@ loadedRoutes
    );
 ```
 
-That way we would be able to have a better way to handle the data and the types, no decode needed.
+This approach aims to streamline data handling and type management, eliminating the need for manual decoding.
 
-But we still have to declare the decode for the register, the other way to improve it is to delivery a module to register the routes, so we can have a better way to organize the routes and the components.
+However, we still need to specify the decoder when registering routes. An alternative improvement is to deliver a module for route registration, allowing for better organization of routes and components.
 
 ```reason
 open DynamicRouting;
@@ -89,35 +86,35 @@ open DynamicRouting;
 loadedRoutes |> register((module Pages_Home): (module Binding.DynamicRouting.LoaderPage));
 ```
 
-That way we don't need to have to declare on the register the decode or any module contract, we could have a better way to organize the code.
+This method simplifies route registration without specifying a decoder or any module contract, facilitating better code organization.
 
-Keep in mind that:
-- I don't know if it is possible to do that with Reasonml, but it is a good idea to try.
-- I'm still learning Universal Reasonml, so it can take a while to implement it.
-- You can help me with that. :)
+Please note:
+- I'm not sure if this is feasible with ReasonML, but it's worth exploring.
+- I'm still mastering Universal ReasonML, so implementation may take some time.
+- I welcome your collaboration. :)
 
 ## Installation
 
 ```sh
-    Make install
+    make install
 ```
 
-With docker:
+With Docker:
 
 ```sh
-    Make docker-build
+    make docker-build
 ```
 
 ## Running
 
 ```sh
-    Make run
+    make run
 ```
 
-With docker:
+With Docker:
 
 ```sh
-    Make docker-run
+    make docker-run
 ```
 
 ## License
@@ -127,9 +124,8 @@ MIT
 ## Improvements
 
 - Increase test coverage.
-    - Test custom hooks with proper testing library.
-- Increase custom Bindings.
-- Better error handling.
-- Githooks
-- CI/CD
-
+    - Test custom hooks with the appropriate testing library.
+- Enhance custom bindings.
+- Improve error handling.
+- Implement Git hooks.
+- Establish CI/CD
