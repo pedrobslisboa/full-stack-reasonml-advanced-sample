@@ -22,7 +22,7 @@ module.exports = (env) => ({
   plugins: [
     (env.analize) ? new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      reportFilename: '../docs/analize.html',
+      reportFilename: 'analize.html',
     }) : null,
     new HtmlWebpackPlugin({
       filename: "index.html",
