@@ -15,7 +15,7 @@ This is an advanced full-stack application using ReasonML and React. It serves a
 
 You can access it here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
 
-This project uses the following main libraries:
+This project utilizes the following main libraries:
 
 - reasonml
 - reason-react
