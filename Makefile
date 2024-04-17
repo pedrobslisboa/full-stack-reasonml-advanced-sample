@@ -19,6 +19,10 @@ build:
 dev:
 	$(DUNE) build -w @all
 
+.PHONY: build-prod
+build-prod:
+	$(DUNE) build --profile=prod @all
+
 .PHONY: clean
 clean:
 	$(DUNE) clean
@@ -26,6 +30,10 @@ clean:
 .PHONY: format
 format: 
 	$(DUNE) build @fmt --auto-promote
+
+.PHONY: analize
+analize: build
+	yarn webpack --env production --env analize
 
 .PHONY: format-check
 format-check:
@@ -49,6 +57,11 @@ docker-run:
 .PHONY: run
 run: build
 	yarn webpack
+	_build/default/src/server/server.exe
+
+.PHONY: run-prod
+run-prod: build-prod
+	yarn webpack --env production
 	_build/default/src/server/server.exe
 
 .PHONY: server
