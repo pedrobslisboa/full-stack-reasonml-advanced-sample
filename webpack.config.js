@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const Path = require("path");
 
 let buildFolder = Path.join(
@@ -18,6 +20,7 @@ module.exports = (env) => ({
     filename: "[name].js",
   },
   plugins: [
+    (env.analize) ? new BundleAnalyzerPlugin() : null,
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "templates/index.html",

@@ -31,6 +31,10 @@ clean:
 format: 
 	$(DUNE) build @fmt --auto-promote
 
+.PHONY: analize
+analize: build
+	yarn webpack --env production --env analize
+
 .PHONY: format-check
 format-check:
 	$(DUNE) build @fmt
