@@ -1,5 +1,3 @@
-Here are some corrections and improvements to the English in your text:
-
 ## Fullstack ReasonML Sample
 
 ## Table of Contents
@@ -60,8 +58,3 @@ MIT
 - Improve error handling.
 - Implement Git hooks.
 - Set up CI/CD
-
-Key points corrected:
-- Capitalization of "ReasonML" and "Docker" for consistency.
-- Corrected the command "Make" to "make" which is the correct usage in shell commands.
-- Fixed spelling errors and enhanced some phrases for clarity.
