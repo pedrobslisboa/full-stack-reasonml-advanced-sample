@@ -128,4 +128,4 @@ MIT
 - Enhance custom bindings.
 - Improve error handling.
 - Implement Git hooks.
-- Establish CI/CD
+- Set up CI/CD
