@@ -28,58 +28,6 @@ let defaultPokemon = {
               }],
 };
 
-let name = json => json |> member("name") |> to_string;
-let sprites = json => {
-  `Assoc([
-    (
-      "other",
-      `Assoc([
-        (
-          "dream_world",
-          `Assoc([
-            (
-              "front_default",
-              `String(
-                json
-                |> member("sprites")
-                |> member("other")
-                |> member("dream_world")
-                |> member("front_default")
-                |> to_string,
-              ),
-            ),
-          ]),
-        ),
-      ]),
-    ),
-  ]);
-};
-
-let abilities = json => {
-  `List(
-    {
-      json
-      |> member("abilities")
-      |> to_list
-      |> List.map(abil => {
-           `Assoc([
-             (
-               "ability",
-               `Assoc([
-                 (
-                   "name",
-                   `String(
-                     abil |> member("ability") |> member("name") |> to_string,
-                   ),
-                 ),
-               ]),
-             ),
-           ])
-         });
-    },
-  );
-};
-
 let extractSprites = (json): sprites => {
   let front_default_url =
     json

@@ -8,11 +8,6 @@ let rec joinUrlPaths = paths =>
   | [hd, ...tail] => hd ++ "/" ++ joinUrlPaths(tail)
   };
 
-type routeDetails('a) = {
-  route: 'a,
-  initialProps: option(Shared_js_demo.Bindings.Json.t),
-};
-
 [@react.component]
 let make = (~pathMappingDetails) => {
   let url = ReasonReactRouter.useUrl();
