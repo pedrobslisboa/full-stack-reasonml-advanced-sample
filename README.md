@@ -33,13 +33,14 @@ Example:
 ```reason
 open DynamicRouting;
 
-loadedRoutes
-|> register(
-     ~path="/",
-     ~getInitialProps=(_) => Binding.Json.from_string("Hello World"),
-     ~component=initialProps =>
-     <h1> {ReasonReact.string(initialProps |> Binding.Json.to_string)} </h1>
-   );
+module Home = {
+    let path = "/";
+    let getInitialProps= (_) => Binding.Json.from_string("Hello World");
+
+    let make = initialProps => <h1> {ReasonReact.string(initialProps |> Binding.Json.to_string)} </h1>
+}
+
+register(module Home);
    
 // Register more routes here
 
@@ -58,35 +59,23 @@ The idea is to eventually provide a better way to construct a prop type with a b
 ```reason
 // Pages_Home.re
 type props = [%json { name: string }];
-
-let json = {
+// generates:
+// let props_of_yojson: (Json.t) => props
+// let props_to_yojson: (props) => Json.t
+let props = {
     name: "John"
 };
 
-let decodedProps = props_of_yojson(json);
-let jsonProps = props_to_yojson(decodedProps);
+let getInitialProps = Some((_) => props)
+
+let make: initialProps => <h1> {ReasonReact.string(initialProps.name)} </h1>
 
 // Pages.re
 loadedRoutes
-|> register(
-     ~path=Pages_Home.path,
-     ~getInitialProps=Pages_Home.getInitialProps,
-     ~decode=Pages_Home.decode,
-     ~component=(initialProps) => <Pages_Home.component ?initialProps />
-   );
+|> register(module Pages_Home);
 ```
 
 This approach aims to streamline data handling and type management, eliminating the need for manual decoding.
-
-However, we still need to specify the decoder when registering routes. An alternative improvement is to deliver a module for route registration, allowing for better organization of routes and components.
-
-```reason
-open DynamicRouting;
-
-loadedRoutes |> register((module Pages_Home): (module Binding.DynamicRouting.LoaderPage));
-```
-
-This method simplifies route registration without specifying a decoder or any module contract, facilitating better code organization.
 
 Please note:
 - I'm not sure if this is feasible with ReasonML, but it's worth exploring.

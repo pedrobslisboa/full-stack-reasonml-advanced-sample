@@ -81,8 +81,6 @@ let initialPropsDefault =
 let path = "/pokemon";
 
 // Runs only on the server
-// but we keep it close to the component
-// to a better overview of the page
 let getInitialProps =
   Some(
     req => {
@@ -96,11 +94,9 @@ let getInitialProps =
     },
   );
 
-type props = Services.GetPokemon.pokemon;
-
-[@react.component]
-let make = (~initialProps=initialPropsDefault) => {
-  let props: props = initialProps |> Services.GetPokemon.decodeJson;
+let make = (initialPropsOpt) => {
+  let initialProps = Option.value(initialPropsOpt, ~default=initialPropsDefault)
+  let props = initialProps |> Services.GetPokemon.decodeJson;
 
   <Components.Layout>
     <Components.Head>

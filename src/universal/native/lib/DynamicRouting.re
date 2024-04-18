@@ -7,15 +7,7 @@ module type LoaderPage = {
 
 let loadedRoutes: ref(list(module LoaderPage)) = ref([]);
 
-let register = (~path, ~getInitialProps, ~component, loadedRoutes) => {
-  module R = {
-    let path = path;
-    let getInitialProps = getInitialProps;
-    let make = component;
-  };
-
-  loadedRoutes := [((module R): (module LoaderPage)), ...loadedRoutes^];
-};
+let register = ((module R): (module LoaderPage)) => loadedRoutes := [((module R): (module LoaderPage)), ...loadedRoutes^];
 
 let getLoadedRoutes = (): list(module LoaderPage) =>
   switch (loadedRoutes^) {
