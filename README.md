@@ -68,7 +68,7 @@ let props = {
 
 let getInitialProps = Some((_) => props)
 
-let make: initialProps => <h1> {ReasonReact.string(initialProps.name)} </h1>
+let make = initialProps => <h1> {ReasonReact.string(initialProps.name)} </h1>
 
 // Pages.re
 loadedRoutes
