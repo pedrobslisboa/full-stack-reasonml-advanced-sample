@@ -3,6 +3,11 @@ name: Deploy
 on:
   push:
     branches: [main]
+    path-ignore:
+      - 'README.md'
+      - 'jest.config.js'
+      - 'Makefile'
+      - '.gitignore'
 
 jobs:
   build:
