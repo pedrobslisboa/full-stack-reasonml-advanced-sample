@@ -50,35 +50,32 @@ module Styles = {
   ];
 };
 
-let initialPropsDefault =
-  Bindings.Json.from_string(
-    {|
-      {
-        "name": "bulbasaur",
-        "sprites": {
-          "other": {
-            "dream_world": {
-              "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-            }
-          }
-        },
-        "abilities": [
-          {
-            "ability": {
-              "name": "overgrow"
-            }
-          },
-          {
-            "ability": {
-              "name": "chlorophyll"
-            }
-          }
-        ]
-      }
-    |},
-  );
+let initialPropsDefault: Services.GetPokemon.pokemon = {
+  name: "bulbasaur",
+  sprites: {
+    other: {
+      dream_world: {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+      },
+    },
+  },
+  abilities: [
+    {
+      ability: {
+        name: "overgrow",
+      },
+    },
+    {
+      ability: {
+        name: "chlorophyll",
+      },
+    },
+  ],
+};
 
 let path = "/pokemon";
+
+type props = Services.GetPokemon.pokemon;
 
 // Runs only on the server
 let getInitialProps =
@@ -94,24 +91,26 @@ let getInitialProps =
     },
   );
 
-let make = (initialPropsOpt) => {
-  let initialProps = Option.value(initialPropsOpt, ~default=initialPropsDefault)
-  let props = initialProps |> Services.GetPokemon.decodeJson;
+let decodeProps = (json) => switch (json) {
+  | Some(j) => Services.GetPokemon.decodeJson(j)
+  | None => initialPropsDefault
+};
 
+let make = (initialProps: props) => {
   <Components.Layout>
     <Components.Head>
-      <title> {"Pokemon: " ++ props.name ++ "" |> React.string} </title>
+      <title> {"Pokemon: " ++ initialProps.name ++ "" |> React.string} </title>
     </Components.Head>
     <div className=Styles.pokemon>
       <div className=Styles.pokemonCard>
-        <h1> {props.name |> React.string} </h1>
+        <h1> {initialProps.name |> React.string} </h1>
         <img
           className=Styles.pokemonImage
-          src={props.sprites.other.dream_world.front_default}
-          alt={props.name}
+          src={initialProps.sprites.other.dream_world.front_default}
+          alt={initialProps.name}
         />
         <ul className=Styles.abilitiesClass>
-          {props.abilities
+          {initialProps.abilities
            |> List.map((ab: Services.GetPokemon.abilityRecord) => {
                 <li className=Styles.ability key={ab.ability.name}>
                   {ab.ability.name |> React.string}

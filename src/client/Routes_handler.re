@@ -9,20 +9,20 @@ let rec joinUrlPaths = paths =>
   };
 
 [@react.component]
-let make = (~pathMappingDetails) => {
+let make = (~pathMappingDetails: (string) => (module Shared_js_demo.DynamicRouting.LoaderPage)) => {
   let url = ReasonReactRouter.useUrl();
   let currentRoute = React.useRef(url.path |> joinUrlPaths);
   let (loading, setLoading) = React.useState(() => false);
   let (renderRoute, setRenderRoute) =
-    React.useState(() => {
-      let (renderRoute, hasInitialProps) =
-        pathMappingDetails(url.path |> joinUrlPaths);
+    React.useState(() => { 
+      module P = (val pathMappingDetails(url.path |> joinUrlPaths));
+
 
       let initialProps =
         Webapi.Dom.(
           {
             switch (
-              hasInitialProps,
+              Option.is_some(P.getInitialProps),
               document |> Document.getElementById("__DATA__"),
             ) {
             | (true, Some(el)) =>
@@ -36,7 +36,7 @@ let make = (~pathMappingDetails) => {
           }
         );
 
-      renderRoute(initialProps);
+      P.make(initialProps)
     });
 
   React.useEffect1(
@@ -45,9 +45,9 @@ let make = (~pathMappingDetails) => {
         ? ()
         : {
           setLoading(_ => true);
-          let (renderRouteComponent, hasInitialProps) =
-            pathMappingDetails(url.path |> joinUrlPaths);
-          if (hasInitialProps) {
+          module P = (val pathMappingDetails(url.path |> joinUrlPaths));
+
+          if (Option.is_some(P.getInitialProps)) {
             Shared_js_demo.Bindings.Js.Promise.(
               Shared_js_demo.Bindings.Fetch.fetch(
                 "/api/initial-props"
@@ -68,12 +68,14 @@ let make = (~pathMappingDetails) => {
                  )
               |> then_(props => {
                    setLoading(_ => false);
-                   setRenderRoute(_ => renderRouteComponent(Some(props)));
+                   setRenderRoute(_ =>
+                     P.make(Some(props))
+                   );
 
                    () |> resolve;
                  })
               |> catch(_ => {
-                   setRenderRoute(_ => renderRouteComponent(None));
+                   setRenderRoute(_ => P.make(None));
 
                    setLoading(_ => false);
 
@@ -83,7 +85,7 @@ let make = (~pathMappingDetails) => {
             );
           } else {
             setLoading(_ => false);
-            setRenderRoute(_ => renderRouteComponent(None));
+            setRenderRoute(_ => P.make(None));
           };
         };
 

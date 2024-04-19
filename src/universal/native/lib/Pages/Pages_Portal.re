@@ -40,9 +40,7 @@ module Styles = {
 
 let path = "/";
 
-let getInitialProps = None;
-
-let make = (_) => {
+let make = () => {
   let (modalOpen, setModalOpen) = React.useState(_ => true);
   let buttonRef = React.useRef(Bindings.Js.Nullable.null);
   let modalRef = React.useRef(Bindings.Js.Nullable.null);

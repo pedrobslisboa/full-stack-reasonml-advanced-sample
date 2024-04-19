@@ -2,6 +2,14 @@
 
 let loadedRoutes = Shared_js_demo.Pages.loadedPages |> Array.of_list;
 
+module NoRoute = {
+  type props;
+  let path = ""
+  let getInitialProps = None
+  let make = (_) => <div> {"404" |> React.string} </div>
+  let decodeProps = None;
+}
+
 module Main = {
   [@react.component]
   let make = () => {
@@ -14,8 +22,8 @@ module Main = {
            )
         |> (
           fun
-          | Some((module P)) => (P.make, Option.is_some(P.getInitialProps))
-          | None => ((_ => <div> {"404" |> React.string} </div>), false)
+          | Some((module P)) => ((module P): (module Shared_js_demo.DynamicRouting.LoaderPage))
+          | None => (module NoRoute)
         )
       }
     />;
