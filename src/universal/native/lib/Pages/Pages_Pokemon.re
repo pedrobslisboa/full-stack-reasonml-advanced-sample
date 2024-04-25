@@ -1,4 +1,9 @@
 module Styles = {
+  [%styled.global {|
+    body {
+      background: #f2f2f2;
+    }
+  |}];
   let pokemon = [%cx
     {|
   color: #393939;

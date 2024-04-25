@@ -50,5 +50,5 @@ pin-depends: [
   ["server-reason-react.0.2.0" "git+https://github.com/ml-in-barcelona/server-reason-react#0.2.0"]
   ["reason.3.11.0" "git+https://github.com/reasonml/reason#3.11.0"]
   ["universal-portal.0.2.0" "git+https://github.com/pedrobslisboa/universal-portal#0.2.0"]
-  ["styled-ppx.0.56.0" "git+https://github.com/davesnx/styled-ppx#0.56.0"]
+  ["styled-ppx.0.56.0" "git+https://github.com/davesnx/styled-ppx#c6f8eebd55a2de8bc577da93bcca30f83c68552c"]
 ]

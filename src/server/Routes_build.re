@@ -4,10 +4,10 @@ let indexFile = open_in_bin("./public/index.html");
 let indexFileString =
   really_input_string(indexFile, in_channel_length(indexFile));
 
-let appendUniversalStyles = (html, styles) => {
+let appendUniversalStyles = (html) => {
   let soup = html |> Soup.parse;
 
-  let stylesElement = "<style>" ++ styles ++ "</styles>" |> Soup.parse;
+  let stylesElement = CssJs.render_style_html_tag() |> Soup.parse;
 
   switch (soup |> Soup.select_one("head")) {
   | None => ()
@@ -26,8 +26,6 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
       let portals:
         ref(array(UniversalPortal_Shared.Components.Portal.portal)) =
         ref([||]);
-
-      let cssStyles = CssJs.render_style_tag();
 
       let getInitialProps =
         switch (getInitialPropsOpt) {
@@ -67,7 +65,7 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
             indexFileString,
           )
           |> UniversalPortal_Server.appendUniversalPortals(_, portals^)
-          |> appendUniversalStyles(_, cssStyles)
+          |> appendUniversalStyles
           |> Dream.html;
         }
       );
