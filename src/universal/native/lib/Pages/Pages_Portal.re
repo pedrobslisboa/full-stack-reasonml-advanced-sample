@@ -1,4 +1,13 @@
 module Styles = {
+  [%styled.global
+    {|
+    body {
+      margin: 0;
+      background: #f2f2f2;
+    }
+  |}
+  ];
+
   let modal = [%cx
     {|
     position: absolute;
@@ -18,7 +27,7 @@ module Styles = {
     {|
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: #fff;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
