@@ -1,13 +1,4 @@
 module Styles = {
-  [%styled.global
-    {|
-    body {
-      margin: 0;
-      background: #f2f2f2;
-    }
-  |}
-  ];
-
   let modal = [%cx
     {|
     position: absolute;
@@ -34,15 +25,15 @@ module Styles = {
   |}
   ];
 
-  let modalButton = [%cx
+  let button = [%cx
     {|
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3498db;
-    cursor: pointer;
+    background-color: #db4d3f;
     color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
     margin-top: 10px;
+    cursor: pointer;
   |}
   ];
 };
@@ -71,6 +62,7 @@ let make = () => {
       <title> {"Home " |> React.string} </title>
     </Components.Head>
     <button
+      className=Styles.button
       ref={ReactDOM.Ref.domRef(buttonRef)}
       onClick={_ => setModalOpen(_ => true)}>
       {"Open modal" |> React.string}
@@ -84,7 +76,7 @@ let make = () => {
                {"Hey, I'm a universal portal, disable JS on your dev tools and check that I'll still here"
                 |> React.string}
                <button
-                 className=Styles.modalButton
+                 className=Styles.button
                  onClick={_ => setModalOpen(_ => false)}>
                  {"Close" |> React.string}
                </button>

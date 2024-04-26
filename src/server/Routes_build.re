@@ -7,7 +7,7 @@ let indexFileString =
 let appendUniversalStyles = (html) => {
   let soup = html |> Soup.parse;
 
-  let stylesElement = CssJs.render_style_html_tag() |> Soup.parse;
+  let stylesElement = (CssJs.style_tag()) |> ReactDOM.renderToString |> Soup.parse;
 
   switch (soup |> Soup.select_one("head")) {
   | None => ()

@@ -1,13 +1,4 @@
 module Styles = {
-  [%styled.global
-    {|
-    body {
-      margin: 0;
-      background: #f2f2f2;
-    }
-  |}
-  ];
-  
   let pokemon = [%cx
     {|
   color: #393939;
@@ -21,17 +12,18 @@ module Styles = {
 
   let pokemonCard = [%cx
     {|
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  margin: 20px;
-  background-color: white;
-  width: 200px;
-|}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    margin: 20px;
+    background-color: white;
+    width: 200px;
+    border-radius: 3px;
+  |}
   ];
 
   let pokemonImage = [%cx {|
@@ -50,12 +42,14 @@ module Styles = {
 
   let ability = [%cx
     {|
-  padding: 5px 10px;
-  list-style: none;
-  border-radius: 5px;
-  background-color: #3498db;
-  color: white;
-  |}
+      list-style: none;
+      background-color: #db4d3f;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      margin-top: 10px;
+    |}
   ];
 };
 
