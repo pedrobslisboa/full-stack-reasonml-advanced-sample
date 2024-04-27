@@ -1,5 +1,7 @@
 # Fullstack ReasonML Sample
 
+![Screenshot of the app runnning](screenshot.png)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -11,9 +13,13 @@
 
 ## Introduction
 
-This is an advanced full-stack application using ReasonML and React. It serves as a sample project to demonstrate how to build an application with ReasonML and React, including a native ReasonML server.
+This is an advanced full-stack application using ReasonML and React. It serves as a sample project to demonstrate how to build an application with ReasonML and React, including a native ReasonML server. 
 
-You can access it here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
+This is possible due to this library: https://github.com/ml-in-barcelona/server-reason-react
+
+To understand better how it works check this article: https://sancho.dev/blog/server-side-rendering-react-in-ocaml
+
+And you can access this app running here: https://native-reason-react-advanced-80387dde2d3c.herokuapp.com/
 
 This project utilizes the following main libraries:
 

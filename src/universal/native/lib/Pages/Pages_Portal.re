@@ -1,4 +1,14 @@
 module Styles = {
+  let wrapper = [%cx
+    {|
+    padding: 40px;
+    margin: 0 auto;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  |}
+  ];
   let modal = [%cx
     {|
     position: absolute;
@@ -38,7 +48,7 @@ module Styles = {
   ];
 };
 
-let path = "/";
+let path = "/portal";
 
 [@react.component]
 let make = () => {
@@ -61,28 +71,27 @@ let make = () => {
     <Components.Head>
       <title> {"Home " |> React.string} </title>
     </Components.Head>
-    <button
-      className=Styles.button
-      ref={ReactDOM.Ref.domRef(buttonRef)}
-      onClick={_ => setModalOpen(_ => true)}>
-      {"Open modal" |> React.string}
-    </button>
-    {modalOpen
-       ? <UniversalPortal_Shared.Components.Portal selector="body">
-           <div className=Styles.modal>
-             <div
-               ref={ReactDOM.Ref.domRef(modalRef)}
-               className=Styles.modalContent>
-               {"Hey, I'm a universal portal, disable JS on your dev tools and check that I'll still here"
-                |> React.string}
-               <button
-                 className=Styles.button
-                 onClick={_ => setModalOpen(_ => false)}>
-                 {"Close" |> React.string}
-               </button>
+    <div className=Styles.wrapper>
+      <Components_Button onClick={_ => setModalOpen(_ => true)}>
+        {"Open modal" |> React.string}
+      </Components_Button>
+      {modalOpen
+         ? <UniversalPortal_Shared.Components.Portal selector="body">
+             <div className=Styles.modal>
+               <div
+                 ref={ReactDOM.Ref.domRef(modalRef)}
+                 className=Styles.modalContent>
+                 {"Hey, I'm a universal portal! Disable JS on your dev tools, refresh the page and check that I'll still here."
+                  |> React.string}
+                 <button
+                   className=Styles.button
+                   onClick={_ => setModalOpen(_ => false)}>
+                   {"Close" |> React.string}
+                 </button>
+               </div>
              </div>
-           </div>
-         </UniversalPortal_Shared.Components.Portal>
-       : React.null}
+           </UniversalPortal_Shared.Components.Portal>
+         : React.null}
+    </div>
   </Components.Layout>;
 };

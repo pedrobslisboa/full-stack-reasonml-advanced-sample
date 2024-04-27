@@ -9,8 +9,14 @@ loadedRoutes
    );
 
 loadedRoutes
+|> register(~path=Pages_Home.path, ~getInitialProps=None, ~component=_ =>
+     <Pages_Home />
+   );
+
+loadedRoutes
 |> register(~path=Pages_Portal.path, ~getInitialProps=None, ~component=_ =>
      <Pages_Portal />
    );
+
 
 let loadedPages = getLoadedRoutes();

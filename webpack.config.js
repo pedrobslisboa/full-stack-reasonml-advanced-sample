@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const Path = require("path");
@@ -27,6 +28,11 @@ module.exports = (env) => ({
       filename: "index.html",
       template: "templates/index.html",
       publicPath: "/public",
-    })
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+          { from: 'assets'}
+      ]
+  })
   ],
 });

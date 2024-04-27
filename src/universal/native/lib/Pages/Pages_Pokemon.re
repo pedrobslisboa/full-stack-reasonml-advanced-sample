@@ -1,13 +1,11 @@
 module Styles = {
   let pokemon = [%cx
     {|
-  color: #393939;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-|}
+    color: #393939;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  |}
   ];
 
   let pokemonCard = [%cx
@@ -18,11 +16,11 @@ module Styles = {
     justify-content: center;
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    border: 2px solid #db4d3f;
     margin: 20px;
     background-color: white;
-    width: 200px;
-    border-radius: 3px;
+    width: fit-content;
+    border-radius: 5px;
   |}
   ];
 

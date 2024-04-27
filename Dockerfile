@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
 RUN npm install -g yarn
 
 # Adicionar os arquivos do projeto ao container
+COPY assets/ assets/
 COPY templates/ templates/
 COPY src/ src/
 COPY full-stack-reasonml-advanced-sample.opam full-stack-reasonml-advanced-sample.opam
