@@ -15,7 +15,7 @@
   yojson
   lwt
   lwt.unix
-  styled-ppx.emotion_native
+  styled-ppx.native
   cohttp-lwt-unix)
  (preprocess
   (pps

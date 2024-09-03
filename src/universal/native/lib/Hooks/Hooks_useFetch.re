@@ -9,6 +9,14 @@ let make = url => {
   let (loading, setLoading) = React.useState(_ => true);
   let (error, setError) = React.useState(_ => None);
 
+  switch%platform () {
+  | Server => 
+    let _ = setData;
+    let _ = setLoading;
+    let _ = setError;
+  | Client => ()
+  };
+
   React.useEffect1(
     () => {
       let fetch = () =>

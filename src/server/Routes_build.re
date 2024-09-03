@@ -7,7 +7,7 @@ let indexFileString =
 let appendUniversalStyles = (html) => {
   let soup = html |> Soup.parse;
 
-  let stylesElement = (CssJs.style_tag()) |> ReactDOM.renderToString |> Soup.parse;
+  let stylesElement = (CSS.style_tag()) |> ReactDOM.renderToString |> Soup.parse;
 
   switch (soup |> Soup.select_one("head")) {
   | None => ()
@@ -24,7 +24,7 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
     path,
     req => {
       let portals:
-        ref(array(UniversalPortal_Shared.Components.Portal.portal)) =
+        ref(array(UniversalPortal_Shared.Portal.portal)) =
         ref([||]);
 
       let getInitialProps =
@@ -44,7 +44,7 @@ let make = (~path, ~renderApp, ~getInitialProps as getInitialPropsOpt) => [
               UniversalPortal_Server.collectPortals(
                 renderApp(props),
                 (
-                  collectedPortal: UniversalPortal_Shared.Components.Portal.portal,
+                  collectedPortal: UniversalPortal_Shared.Portal.portal,
                 ) => {
                 portals := Array.append(portals^, [|collectedPortal|])
               }),

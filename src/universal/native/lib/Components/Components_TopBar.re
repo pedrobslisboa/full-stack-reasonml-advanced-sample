@@ -165,19 +165,29 @@ module MobileMenu = {
   };
 };
 
+let useActiveTab = () =>
+  switch%platform () {
+  | Client =>
+    let url = ReasonReactRouter.useUrl();
+    let (active, setActive) = React.useState(_ => "");
+
+    React.useEffect1(
+      () => {
+        setActive(_ => url.path |> joinUrlPaths);
+
+        None;
+      },
+      [|url|],
+    );
+
+    active;
+
+  | Server => ""
+  };
+
 [@react.component]
 let make = () => {
-  let url = ReasonReactRouter.useUrl();
-  let (active, setActive) = React.useState(_ => "");
-
-  React.useEffect1(
-    () => {
-      setActive(_ => url.path |> joinUrlPaths);
-
-      None;
-    },
-    [|url|],
-  );
+  let active = useActiveTab();
 
   <div className=Styles.wrapper>
     <div className=Styles.topBar>

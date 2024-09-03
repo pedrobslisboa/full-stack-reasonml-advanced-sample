@@ -14,11 +14,11 @@ depends: [
   "dream"
   "lambdasoup"
   "reason-react-ppx"
-  "reason-react"
-  "server-reason-react"
-  "universal-portal"
-  "styled-ppx"
-  "quickjs"
+  "reason-react" {>= "0.14.0"}
+  "server-reason-react" {>= "0.2.0"}
+  "universal-portal" {>= "0.3.1"}
+  "styled-ppx" {>= "0.59.1"}
+  "quickjs" {>= "0.1.1"}
   "yojson"
   "lwt" {>= "5.7.0"}
   "cohttp-lwt-unix" {>= "5.3.1"}
@@ -44,11 +44,6 @@ build: [
   ]
 ]
 pin-depends: [
-  ["quickjs.0.1.1" "git+https://github.com/ml-in-barcelona/quickjs.ml#0.1.1"]
-  ["reason-react.0.14.0" "git+https://github.com/reasonml/reason-react#0.14.0"]
-  ["reason-react-ppx.0.14.0" "git+https://github.com/reasonml/reason-react#0.14.0"]
-  ["server-reason-react.0.2.0" "git+https://github.com/ml-in-barcelona/server-reason-react#0.2.0"]
-  ["reason.3.11.0" "git+https://github.com/reasonml/reason#3.11.0"]
-  ["universal-portal.0.2.0" "git+https://github.com/pedrobslisboa/universal-portal#0.2.0"]
-  ["styled-ppx.0.56.0" "git+https://github.com/davesnx/styled-ppx#923c9abcf6ef2d64fe83e15cc632fb6e7cab8503"]
+  ["universal-portal.0.3.1" "git+https://github.com/pedrobslisboa/universal-portal#0.3.1"]
+  ["server-reason-react.0.3.1" "git+https://github.com/ml-in-barcelona/server-reason-react#fb6836045f4ee56cf42c409f2830674146e0eea4"]
 ]

@@ -76,7 +76,7 @@ let make = () => {
         {"Open modal" |> React.string}
       </Components_Button>
       {modalOpen
-         ? <UniversalPortal_Shared.Components.Portal selector="body">
+         ? <UniversalPortal_Shared.Portal selector="body">
              <div className=Styles.modal>
                <div
                  ref={ReactDOM.Ref.domRef(modalRef)}
@@ -90,7 +90,7 @@ let make = () => {
                  </button>
                </div>
              </div>
-           </UniversalPortal_Shared.Components.Portal>
+           </UniversalPortal_Shared.Portal>
          : React.null}
     </div>
   </Components.Layout>;

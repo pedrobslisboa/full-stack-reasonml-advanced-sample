@@ -52,7 +52,7 @@ module Styles = {
 
 [@react.component]
 let make = () => {
-  <UniversalPortal_Shared.Components.Portal selector="body">
+  <UniversalPortal_Shared.Portal selector="body">
     <div className=Styles.loader> <div className=Styles.loaderBar /> </div>
-  </UniversalPortal_Shared.Components.Portal>;
+  </UniversalPortal_Shared.Portal>;
 };

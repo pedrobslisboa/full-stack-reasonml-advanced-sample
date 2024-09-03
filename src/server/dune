@@ -6,7 +6,7 @@
   cohttp
   cohttp-lwt
   lwt
-  styled-ppx.emotion_native
+  styled-ppx.native
   lwt.unix
   cohttp-lwt-unix
   universal-portal.server

@@ -94,7 +94,7 @@ let make = (~pathMappingDetails) => {
     [|url.path|],
   );
 
-  UniversalPortal_Shared.Hooks.UseRemoveServerPortals.make();
+  UniversalPortal_Js.useRemoveServerPortals();
 
   <>
     {loading ? <Shared_js_demo.Components.Loader /> : React.null}

@@ -3,7 +3,7 @@
 (library
  (name shared_js_demo)
  (modes melange)
- (libraries reason-react styled-ppx.emotion universal-portal.shared_js)
+ (libraries reason-react styled-ppx.melange universal-portal.shared_js)
  (preprocess
   (pps
    melange.ppx
